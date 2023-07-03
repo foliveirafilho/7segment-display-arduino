@@ -165,6 +165,13 @@ void TM74HC595Display::clear()
   _DATA[3] = 0xFF;
 }
 
+void TM74HC595Display::clear(int digit)
+{
+  if digit >= 0 && digit < 4 {
+    _DATA[digit] = 0xFF;
+  }
+}
+
 void TM74HC595Display::int_dot(int n, int pos)
 {
   int n1, n2, n3, n4;

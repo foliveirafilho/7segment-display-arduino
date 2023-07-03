@@ -20,6 +20,7 @@ public:
 	void digit(int display, int value);
 	void set(unsigned char X, int port);
 	void clear();
+	clear(int digit);
 
 	void float_dot(float value, int pos);
 	void int_dot(int n, int pos);
