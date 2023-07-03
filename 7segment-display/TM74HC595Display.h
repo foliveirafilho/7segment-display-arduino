@@ -1,10 +1,7 @@
-/*
-	TM74HC595Display.h - Library for use 4LED display with 2 TM74HC595.
-	Created by Kostarev V., February 23, 2016.
-	Updated by AlexGyver 06.02.2017 (added float_dot and int_dot functions)
-*/
+
 #ifndef TM74HC595Display_h
 #define TM74HC595Display_h
+
 
 class TM74HC595Display
 {
@@ -17,7 +14,7 @@ public:
 	void digit4(int n);
 	void digit4showZero(int n);
 	void digit2(int n, int port);
-	void digit(int display, int value);
+	void digit(int display, unsigned char value);
 	void set(unsigned char X, int port);
 	void clear();
 	clear(int digit);
