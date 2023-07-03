@@ -15,6 +15,7 @@ public:
 	void digit4showZero(int n);
 	void digit2(int n, int port);
 	void digit(int display, unsigned char value);
+	unsigned char get(int display);
 	void set(unsigned char X, int port);
 	void clear();
 	void clear(int digit);
