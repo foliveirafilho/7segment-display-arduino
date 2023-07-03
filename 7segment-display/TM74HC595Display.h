@@ -17,7 +17,7 @@ public:
 	void digit(int display, unsigned char value);
 	void set(unsigned char X, int port);
 	void clear();
-	clear(int digit);
+	void clear(int digit);
 
 	void float_dot(float value, int pos);
 	void int_dot(int n, int pos);
