@@ -167,7 +167,7 @@ void TM74HC595Display::clear()
 
 void TM74HC595Display::clear(int digit)
 {
-  if digit >= 0 && digit < 4 {
+  if (digit >= 0 && digit < 4) {
     _DATA[digit] = 0xFF;
   }
 }
