@@ -110,43 +110,6 @@ void TM74HC595Display::send(unsigned char X, unsigned char port)
   digitalWrite(_RCLK, HIGH);
 }
 
-void TM74HC595Display::digit4(int n, bool showZero)
-{
-  int n1, n2, n3, n4;
-  n1 = (int)n % 10;
-  n2 = (int)((n % 100) - n1) / 10;
-  n3 = (int)((n % 1000) - n2 - n1) / 100;
-  n4 = (int)((n % 10000) - n3 - n2 - n1) / 1000;
-
-  set(_LED_0F[n1], 0);
-  if (showZero | n > 9)
-    set(_LED_0F[n2], 1);
-  if (showZero | n > 99)
-    set(_LED_0F[n3], 2);
-  if (showZero | n > 999)
-    set(_LED_0F[n4], 3);
-}
-
-void TM74HC595Display::digit4(int n)
-{
-  digit4(n, false);
-}
-
-void TM74HC595Display::digit4showZero(int n)
-{
-  digit4(n, true);
-}
-
-void TM74HC595Display::digit2(int n, int port)
-{
-  int n1, n2;
-  n1 = (int)n % 10;
-  n2 = (int)((n % 100) - n1) / 10;
-
-  set(_LED_0F[n1], port);
-  set(_LED_0F[n2], port + 1);
-}
-
 void TM74HC595Display::digit(int display, unsigned char value)
 {
   _DATA[display] = value;
@@ -155,11 +118,6 @@ void TM74HC595Display::digit(int display, unsigned char value)
 unsigned char TM74HC595Display::get(int display)
 {
   return _DATA[display];
-}
-
-void TM74HC595Display::set(unsigned char X, int port)
-{
-  _DATA[port] = X;
 }
 
 void TM74HC595Display::clear()
@@ -172,93 +130,8 @@ void TM74HC595Display::clear()
 
 void TM74HC595Display::clear(int digit)
 {
-  if (digit >= 0 && digit < 4) {
+  if (digit >= 0 && digit < 4)
+  {
     _DATA[digit] = 0xFF;
   }
-}
-
-void TM74HC595Display::int_dot(int n, int pos)
-{
-  int n1, n2, n3, n4;
-  n1 = (int)n % 10;
-  n2 = (int)((n % 100) - n1) / 10;
-  n3 = (int)((n % 1000) - n2 - n1) / 100;
-  n4 = (int)((n % 10000) - n3 - n2 - n1) / 1000;
-
-  int dot1 = 0, dot2 = 0, dot3 = 0;
-  switch (pos)
-  {
-  case 1:
-    dot1 = 10;
-    break;
-  case 2:
-    dot2 = 10;
-    break;
-  case 3:
-    dot3 = 10;
-    break;
-  }
-
-  set(_LED_0F[n1], 0); // вывод
-  if (n > 9)
-    set(_LED_0F[n2 + dot1], 1); // вывод
-  if (n > 99)
-    set(_LED_0F[n3 + dot2], 2); // вывод
-  if (n > 999)
-    set(_LED_0F[n4 + dot3], 3); // вывод
-}
-
-void TM74HC595Display::float_dot(float value, int pos)
-{
-  int whole = floor(value);
-  int fract = round(((float)value - whole) * pow(10, pos));
-
-  byte w1, w2, w3, w4;
-  w1 = (int)whole % 10;
-  w2 = (int)((whole % 100) - w1) / 10;
-  w3 = (int)((whole % 1000) - w2 - w1) / 100;
-  w4 = (int)((whole % 10000) - w3 - w2 - w1) / 1000;
-
-  byte f1, f2, f3, f4;
-  f1 = (int)fract % 10;
-  f2 = (int)((fract % 100) - f1) / 10;
-  f3 = (int)((fract % 1000) - f2 - f1) / 100;
-  f4 = (int)((fract % 10000) - f3 - f2 - f1) / 1000;
-
-  byte n0, n1, n2, n3;
-  switch (pos)
-  {
-  case 0:
-    n0 = w1;
-    n1 = w2;
-    n2 = w3;
-    n3 = w4;
-    break;
-  case 1:
-    n0 = fract;
-    n1 = w1 + 10;
-    n2 = w2;
-    n3 = w3;
-    break;
-  case 2:
-    n0 = f1;
-    n1 = f2;
-    n2 = w1 + 10;
-    n3 = w2;
-    break;
-  case 3:
-    n0 = f1;
-    n1 = f2;
-    n2 = f3;
-    n3 = w1 + 10;
-    break;
-  }
-
-  set(_LED_0F[n0], 0);
-  if (!(n3 == 0 && n2 == 0 && n1 == 0))
-    set(_LED_0F[n1], 1);
-  if (!(n3 == 0 && n2 == 0))
-    set(_LED_0F[n2], 2);
-  if (n3 != 0)
-    set(_LED_0F[n3], 3);
 }

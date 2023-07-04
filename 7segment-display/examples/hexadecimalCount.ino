@@ -9,7 +9,8 @@ TM74HC595Display disp(SCLK, RCLK, DIO);
 unsigned char LED_0F[16];
 int value;
 
-void setup() {
+void setup()
+{
   LED_0F[0] = 0xC0;
   LED_0F[1] = 0xF9;
   LED_0F[2] = 0xA4;
@@ -28,30 +29,32 @@ void setup() {
   LED_0F[15] = 0x8E;
 
   value = 0;
-  
+
   Timer1.initialize(1500);
   Timer1.attachInterrupt(timerIsr);
 }
 
-void loop() {
+void loop()
+{
+  if (value > 15)
+  {
+    value = 0;
+  }
 
-  disp.digit(3, LED_0F[0]);
-  delay(1000);
-  disp.digit(2, LED_0F[1]);
-  delay(1000);
-  disp.digit(1, LED_0F[2]);
-  delay(1000);
-  disp.digit(0, LED_0F[3]);
-  delay(1000);
-
-  disp.clear(2);
-  delay(1000);
-  disp.clear(0);
-  delay(1000);
-  disp.clear(3);
-  delay(1000);
-  disp.clear(1);
-  delay(1000);
+  disp.digit(0, LED_0F[value]);
+  delay(100);
+  while (value <= 15)
+  {
+    value++;
+    disp.digit(3, disp.get(2));
+    delay(100);
+    disp.digit(2, disp.get(1));
+    delay(100);
+    disp.digit(1, disp.get(0));
+    delay(100);
+    disp.digit(0, LED_0F[value]);
+    delay(100);
+  }
 }
 
 void timerIsr()

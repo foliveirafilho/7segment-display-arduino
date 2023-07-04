@@ -1,21 +1,24 @@
-# Arduino based speedometer
-## Project description
-- Calculates speed of revolving object by magnetic hall sensor
-- Displays speed via servo in "analog-like" scale
-- Displays odo (distance)
-- Keeps traveled distance in EEPROM, so it is not zero after reboot
-- [Quick start with Arduino](https://learn.sparkfun.com/tutorials/installing-arduino-ide)
+# Trabalho final
 
-## Schematics
-![Speedometer 1.0](https://github.com/AlexGyver/Arduino_speedometer/blob/master/Screenshot_12.jpg)
+Para utilizar a biblioteca, crie um arquivo `.zip` do diretório `7segment-display`. No Linux, execute:
 
-## Page on Instructables
-https://www.instructables.com/id/DIY-Speedometer-on-Arduino/
+```bash
+tar -zcf 7segment-display.zip 7segment-display
+```
 
-## Components
-* Arduino NANO https://ali.ski/ZKXvi
-* Hall sensor https://ali.ski/QOzKMN
-* Servo https://ali.ski/-QKlv0
-* Display https://ali.ski/p9-Xt
-* 5V dcdc step up hhttps://ali.ski/49cqYU
-* Lithium charger https://ali.ski/P2leDa
+Após isso, abra a IDE do Arduino e selecione `Sketch > Include Library > Add .ZIP library` e escolha o arquivo comprimido.
+
+## Códigos de exemplo
+
+### `clear.ino`
+
+Mostra a funcionalidade da função `clear` implementada:
+
+- Ao informar um display, apaga o valor contido nele.
+
+### `hexadecimalCount.ino`
+
+Mostra a funcionalidade das funções `digit` e `get` implementadas:
+
+- Ao informar um display e um valor, o `digit` coloca o valor informado no display;
+- Ao informar um display, o `get` retorna o valor do display informado;
